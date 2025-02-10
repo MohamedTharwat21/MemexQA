@@ -14,3 +14,24 @@ Focal Visual-Text Attention Network. (old)
 
 Focal Visual-Text Attention Network. (old)
 
+![image](https://github.com/user-attachments/assets/a0467903-0b91-44ee-8dd5-dc2af862e1b8)
+
+Dataset
+
+![image](https://github.com/user-attachments/assets/c7196388-820b-460a-b632-a610f64a6808)
+
+Model (new)
+
+![image](https://github.com/user-attachments/assets/c3dacbce-bff5-4af9-8925-f5aadfa238e4)
+
+MemexQA examples. The inputs are a question and a sequence
+of a user’s photos with corresponding metadata. The outputs include a
+short text answer and a few grounding photos to justify the answer.
+
+![image](https://github.com/user-attachments/assets/a4e97ef4-d31b-49de-ae33-907668cbc67a)
+
+Comparison of FVTA and classical VQA attention mechanism.
+FVTA considers both visual-text intra-sequence correlations and cross
+sequence interaction, and focuses on a few, small regions. In FVTA, the
+multi-modal feature representation in the sequence data is preserved
+without losing information.
