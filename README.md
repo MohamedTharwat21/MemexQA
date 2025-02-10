@@ -5,3 +5,12 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 ![image](https://github.com/user-attachments/assets/84ad409d-8205-455a-9def-11d2b7ba32ea)
 
 Example FVTA Output.
+
+![image](https://github.com/user-attachments/assets/799a77ea-1036-4145-8a92-7776385deed8)
+
+Focal Visual-Text Attention Network. (old)
+
+![image](https://github.com/user-attachments/assets/a11cff51-d16f-4027-aa7f-1dbc30040910)
+
+Focal Visual-Text Attention Network. (old)
+
