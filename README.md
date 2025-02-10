@@ -1,2 +1,2 @@
 # MemexQA
-MemexQA is a project designed to tackle the challenge of real-life multimodal question answering by leveraging both visual and textual data from personal photo albums. 
+MemexQA is a cutting-edge project designed to tackle the challenge of real-life multimodal question answering by leveraging both visual and textual data from personal photo albums. The task involves answering user queries about events or moments captured in sequences of photos, aiming to help users recover memories tied to these events. The model not only generates textual answers but also provides grounding photos as visual justifications, enabling users to quickly verify the provided answers.
