@@ -38,6 +38,7 @@ def collate_fn(batch):
         # cho is list of 3 ans
         for c in cho:
             answer.append(c)
+
     
     # answer = [item.unsqueeze(0) for item in answer]
 
