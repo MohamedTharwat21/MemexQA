@@ -7,11 +7,18 @@ Data Characteristics
 
 Problem Formulation
 
+Modifications 
+torch instead tensorflow
+self-attention instead lstm--acc
+
 Model Architecture
 
 FOCAL VISUAL-TEXT ATTENTION (FVTA)
 
 Installation
+model params
+venv
+argparser
 
 
 
