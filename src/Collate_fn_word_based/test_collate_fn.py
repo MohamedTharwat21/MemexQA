@@ -21,7 +21,6 @@ def collate_fn(batch):
     # image_feats, photo_titles, image_lengths
     answer_embed = [item[1] for item in batch] # (bs, answer_len, 768)
     choice_embed = [item[2] for item in batch] # (bs, 3, answer_len, 768)
-     
     
     # print([it.shape for it in answer_embed])
     # [torch.Size([4, 768]), torch.Size([3, 768]), torch.Size([4, 768])]
@@ -31,40 +30,26 @@ def collate_fn(batch):
     # [torch.Size([5, 768]), torch.Size([4, 768]), torch.Size([4, 768]), 
     #  torch.Size([3, 768]), torch.Size([3, 768]), torch.Size([3, 768]), 
     #  torch.Size([4, 768]), torch.Size([4, 768]), torch.Size([3, 768])]
-
     answer = [] # 3 ans + 9 other cohices = 12 choices
     for ans, cho in zip(answer_embed, choice_embed):
         answer.append(ans)
         # cho is list of 3 ans
         for c in cho:
-            answer.append(c)
-
-    
+            answer.append(c)   
     # answer = [item.unsqueeze(0) for item in answer]
-
     # print("surprise...")
     # print(f'length of answer list {len(answer)}') #12
     # for _ans in answer :
     #     print(_ans.shape)
-
-
-
     # ans.shape[0] is varying in this batch between (3,4 and 5)
     answer_lengths = torch.LongTensor([ans.shape[0] for ans in answer]) # (bs*4, max_len, 768)  
     # print(f'answer_lengths {answer_lengths}')
-
     # answer = pad_sequence(answer) #torch.Size([5, 12, 768])
     answer = pad_sequence(answer , batch_first= True) #torch.Size([12, 5, 768])
-
     # print(f'answer list shape after padding {answer.shape}')  
     # for _ans in answer :
     #     print(_ans.shape)
-  
-
-
     bs, num_label = len(batch), 4  # number of labels is 4 [ans , c1, c2, c3]
-
-
     question_embed = [item[0] for item in batch] # (bs,question_len,768)
     # question_embed = [item.unsqueeze(0) for item in question_embed]
     # print('surprise...')
@@ -73,30 +58,17 @@ def collate_fn(batch):
         # """ torch.Size([8, 768])
         #     torch.Size([10, 768])
         #     torch.Size([11, 768])"""
-
-    
-    
-
-    """the most confusing part is here .
-       the question is repeated 4 times for (answer , choice1 , choice2 , choice3) """
-    
+    # """the most confusing part is here .
+    #    the question is repeated 4 times for (answer , choice1 , choice2 , choice3) """
     question = []
     for que in question_embed:
         # loop 4 times
         for _ in range(num_label):
-            question.append(que)
-    
+            question.append(que)    
     # print(f'len(question) : {len(question)}') #12
-
-
     question_lengths = torch.LongTensor([que.shape[0] for que in question]) 
     question = pad_sequence(question,batch_first=True)#(bs*4, max_len, 768)
-    
     # print(f'question shape: {question.shape}') # torch.Size([12, 11, 768])
-
-
-     
-
     # u have batch of 3 items then u have 3 album_titles 
     # for every album title repeat it 4 times 
     # so album_title list will be 12 item
@@ -111,23 +83,18 @@ def collate_fn(batch):
     # context 
     # text = [torch.cat([a,b,c,d,e], 0) for a,b,c,d,e in zip(album_title,album_desp,album_when,album_where,photo_titles)] # (bs, ..., 768)
     #     text = [torch.cat([a,b,c,d,e], 0) for a,b,c,d,e in zip(album_title,album_desp,album_when,album_where,photo_titles)] # (bs, ..., 768)
-    
     text = []
-
     for a, b, c, d, e in zip(album_title, album_desp, album_when, album_where, photo_titles):
         # Ensure all tensors have 3 dimensions
         def ensure_three_dims(tensor):
             if tensor.dim() == 2:  # If the tensor has only 2 dimensions, add a third one
                 tensor = tensor.unsqueeze(0)  # Add a new dimension at the front
             return tensor
-
         a, b, c, d, e = map(ensure_three_dims, [a, b, c, d, e])
-
         # Find the maximum lengths along dimensions 0 and 1
         max_len_dim0 = max(a.size(0), b.size(0), c.size(0), d.size(0), e.size(0))
         max_len_dim1 = max(a.size(1), b.size(1), c.size(1), d.size(1), e.size(1))
         fixed_dim2 = a.size(2)  # Assuming the last dimension is fixed for all tensors
-
         # Pad each tensor to the maximum sizes
         def pad_tensor(tensor, max_dim0, max_dim1, fixed_dim2):
             if tensor.size(-2) == 768 :
@@ -151,23 +118,16 @@ def collate_fn(batch):
         e_padded = pad_tensor(e, max_len_dim0, max_len_dim1, fixed_dim2)
 
         # Concatenate the padded tensors along dimension 0
-        concatenated = torch.cat([a_padded, b_padded, c_padded, d_padded, e_padded], dim=0)
-        
+        concatenated = torch.cat([a_padded, b_padded, c_padded, d_padded, e_padded], dim=0)  
         text.append(concatenated)
 
     
     # for item in text :
-    #     print(f'final item in text shape {item.shape}')
-
-
-    
+    #     print(f'final item in text shape {item.shape}')    
     # here as we know the first dimension is variable lenght
     text_lengths = torch.LongTensor([t.shape[0] for t in text]) # (bs*4)
     # print("*" * 100)
     # print(f'text lengths {text_lengths}')
-
- 
-    
     def pad_to_max_size(tensors, max_dim0, max_dim1, fixed_dim2):
         """
         Pads a list of tensors to the specified maximum sizes.
@@ -185,27 +145,23 @@ def collate_fn(batch):
                 padded_tensor = torch.cat([padded_tensor, torch.zeros(padded_tensor.size(0), pad_dim1, fixed_dim2)], dim=1)
             padded_tensors.append(padded_tensor)
         return torch.stack(padded_tensors, dim=0)
-    
-
     # Determine maximum dimensions across all tensors
     max_dim0 = max(tensor.size(0) for tensor in text)
     max_dim1 = max(tensor.size(1) for tensor in text)
     fixed_dim2 = text[0].size(2)  # Assuming the last dimension is fixed for all tensors
-
+    
     # Pad all tensors in the list to the same dimensions
     text_padded = pad_to_max_size(text, max_dim0, max_dim1, fixed_dim2) #torch.Size([12, 45, 107, 768])
 
     # print(f"Padded text shape: {text_padded.shape}") #torch.Size([12, 45, 107, 768])
-        
 
-
-
+    # images
     images = [item[7] for item in batch for _ in range(num_label)] # (bs*4, num_album*num_photo, 2537)
     image_lengths = torch.LongTensor([i.shape[0] for i in images]) # (bs*4)
     images = pad_sequence(images, batch_first=True)
 
     # Label smoothing
-        # put 0 for the correct answer and 1s for the 3 other choices 
+    # put 0 for the correct answer and 1s for the 3 other choices 
     """
     for example batch size = 8  
     label tensor([  0, 1, 1, 1,
@@ -217,10 +173,7 @@ def collate_fn(batch):
                     0, 1, 1, 1,
                     0, 1, 1, 1]) 
     """
-
     label = torch.LongTensor(bs*([0]+[1]*(num_label-1)))
-
-
 
     return( question,  # (bs*4, max_question_len, 768)
             question_lengths,  # (bs*4,)
@@ -239,12 +192,9 @@ def collate_fn(batch):
 def loader_data():
     from use_dataset import train_dataset
     from torch.utils.data import DataLoader
-
     train = DataLoader(train_dataset, batch_size=4, shuffle=True, num_workers=0,
                     collate_fn=collate_fn) 
     return train
-
-
 
 """
     question_embed.detach(),\
@@ -255,17 +205,12 @@ def loader_data():
     album_description.detach(), \
     album_when.detach(), \
     album_where.detach(), \
-    
     image_feats.detach(), \
     photo_titles.detach(), \
     image_lengths.detach()
 """
 
-
 if __name__ == '__main__':
-      
-
-
     # Load data and print out the first item in the batch
     train = loader_data()
     for id,data in enumerate(train):
