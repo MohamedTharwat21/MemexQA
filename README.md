@@ -31,6 +31,7 @@ argparser
 
 **Example FVTA Output.**
 
+
  
 ## Dataset
 
@@ -50,15 +51,18 @@ Fig2 shows an example of an album. There are five types of questions in the data
 single album or multiple albums; each question is provided with 4 candidate choices and one correct
 answer out of them.
 
+
 ![image](https://github.com/user-attachments/assets/c3dacbce-bff5-4af9-8925-f5aadfa238e4)
 
 **MemexQA examples. The inputs are a question and a sequence
 of a user’s photos with corresponding metadata. The outputs include a
 short text answer and a few grounding photos to justify the answer.**
 
+
 ![image](https://github.com/user-attachments/assets/b9444dd5-efb8-4b73-b30f-6c238f3b3d99)
 
 **Figure : Question distribution by question types.**
+
 
 ## Model
 ![image](https://github.com/user-attachments/assets/c7196388-820b-460a-b632-a610f64a6808)
@@ -68,26 +72,20 @@ short text answer and a few grounding photos to justify the answer.**
 ### Preprocessing
 #### Visual Data
 Images are embedded using a pre-trained Convolutional Neural Network (CNN) and further encoded with LSTM or self-attention.
-
 #### Textual Data
 Words in metadata, questions, and answers are embedded at both word-level (WL) and sentence-level (SL) before LSTM encoding.
-
 #### Word-Level Embedding (WL)
-Instead of using pre-trained GloVe embeddings, we experimented with BERT-based word embeddings (BERT-WL). As shown in Table 4.4.2, BERT-WL improves accuracy by 2.5% compared to GloVe-WL, achieving 54.8% accuracy.
-
+Instead of using pre-trained GloVe embeddings, we experimented with BERT-based word embeddings (BERT-WL). 
 #### Sentence-Level Embedding (SL)
 We also experimented with using BERT-based sentence embeddings (BERT-SL), bypassing the sentence encoder to directly use pre-trained BERT embeddings as input.
 
 ### Modelling
 #### Context Encoder
 Different architectures are used to encode visual and textual sequences.
-
 #### LSTM Encoder
 Previous works used LSTM to encode contextual information but lacked temporal awareness for images and texts. To address this, we incorporated a self-attention mechanism.
-
 #### Self-Attention Encoder
 Since the input data lacks temporal structure, we exclude positional embeddings. Instead, image and text embeddings from the previous layer are treated independently.
-
 ![image](https://miro.medium.com/v2/resize:fit:1400/1*7Jbg-m9UNKXw-Mw_o-9BJQ.gif)
 
 **Self-Attention mechanism**
@@ -96,7 +94,8 @@ Since the input data lacks temporal structure, we exclude positional embeddings.
 #### Focal Visual-Text Attention (FVTA)
 FVTA models the correlation between questions and multi-modal representations, emphasizing relevant context based on the question. Given that most answers are localized within short temporal segments, FVTA applies attention over focal context representations to summarize key information. A kernel tensor computes correlations between question words and context states, followed by a softmax layer to generate answer probabilities.
 
-![image](https://github.com/user-attachments/assets/a4e97ef4-d31b-49de-ae33-907668cbc67a)
+ 
+![image](https://github.com/user-attachments/assets/9fef9bea-3c39-43c5-baf9-965860107431)
 
 **FVTA considers both visual-text intra-sequence correlations and cross
 sequence interaction, and focuses on a few, small regions. In FVTA, the
