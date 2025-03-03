@@ -49,20 +49,13 @@ Fig2 shows an example of an album. There are five types of questions in the data
 single album or multiple albums; each question is provided with 4 candidate choices and one correct
 answer out of them.
 
-
 ![image](https://github.com/user-attachments/assets/c3dacbce-bff5-4af9-8925-f5aadfa238e4)
 **MemexQA examples. The inputs are a question and a sequence
 of a user’s photos with corresponding metadata. The outputs include a
 short text answer and a few grounding photos to justify the answer.**
 
-
-
-
 ![image](https://github.com/user-attachments/assets/b9444dd5-efb8-4b73-b30f-6c238f3b3d99)
 **Figure : Question distribution by question types.**
-
-
-
 
 ## Model
 ![image](https://github.com/user-attachments/assets/c7196388-820b-460a-b632-a610f64a6808)
@@ -91,7 +84,7 @@ Previous works used LSTM to encode contextual information but lacked temporal aw
 #### Self-Attention Encoder
 Since the input data lacks temporal structure, we exclude positional embeddings. Instead, image and text embeddings from the previous layer are treated independently.
 
-![image](https://github.com/user-attachments/assets/3a59e1fd-d4dc-4c8d-adb5-5def631bc56f)
+![image](https://miro.medium.com/v2/resize:fit:1400/1*7Jbg-m9UNKXw-Mw_o-9BJQ.gif)
 **Self-Attention mechanism**
 
 ### Attention Mechanism
