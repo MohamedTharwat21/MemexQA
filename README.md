@@ -56,9 +56,15 @@ I also experimented with using BERT-based sentence embeddings (BERT-SL), bypassi
 
 ### Modelling
 #### Context Encoder
-Different architectures are used to encode visual and textual sequences.
+I used several different architectures to encode visual and text sequences respectively. In current
+experiments, i use **Self-Attention** and **LSTM** as encoder. The inputs are **image/text** embedding
+produced by the previous layer. The outputs of each encoder network at each step is concatenated as
+a representation of the image, metadata and text sequences.
 #### LSTM Encoder
-Previous works used LSTM to encode contextual information but lacked temporal awareness for images and texts. To address this, I incorporated a self-attention mechanism.
+To encode a series of information, the original work proposed by ["Focal Visual-Text Attention for Memex Question Answering"](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=8603827) used an LSTM to encode
+all contextual information. A drawback with this approach is that they don’t have **any temporal
+information for the images and texts** . So, i revise this part with the **self-attention architecture**.
+
 #### Self-Attention Encoder
 Since the input data lacks temporal structure, i exclude positional embeddings. Instead, image and text embeddings from the previous layer are treated independently.
 ![image](https://miro.medium.com/v2/resize:fit:1400/1*7Jbg-m9UNKXw-Mw_o-9BJQ.gif)
