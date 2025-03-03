@@ -134,7 +134,7 @@ Since I had some success with **BERT-WL**, I thought of doing the same with the 
 Preprocess:
 ```shell
 python3 src/preprocess.py memexqa_dataset_v1.1/qas.json memexqa_dataset_v1.1/album_info.json memexqa_dataset_v1.1/test_question.ids memexqa_dataset_v1.1/photos_inception_resnet_v2_l2norm.npz prepro_BERT_SA_sb
-```
+ 
 Train:
 ```
 python3 src/train.py --workers 8 --batchSize 32 --niter 100 --inpf ./prepro_BERT_SA_sb/ --outf ./outputs/BERT_WL_SA_sb --cuda --gpu_id 0
