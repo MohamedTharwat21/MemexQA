@@ -29,12 +29,13 @@ argparser
 
 ![image](https://github.com/user-attachments/assets/84ad409d-8205-455a-9def-11d2b7ba32ea)
 
-Example FVTA Output.
+**Example FVTA Output.**
 
  
 ## Dataset
 
 ![image](https://github.com/user-attachments/assets/e440360e-b5ca-4e9c-922c-00ebefbafcd1)
+
 **Figure 2 : Textual metadata, photos, question and four-choice answers.**
 
 MemexQA dataset is composed of real-world personal photo albums and questions about events
@@ -50,15 +51,18 @@ single album or multiple albums; each question is provided with 4 candidate choi
 answer out of them.
 
 ![image](https://github.com/user-attachments/assets/c3dacbce-bff5-4af9-8925-f5aadfa238e4)
+
 **MemexQA examples. The inputs are a question and a sequence
 of a user’s photos with corresponding metadata. The outputs include a
 short text answer and a few grounding photos to justify the answer.**
 
 ![image](https://github.com/user-attachments/assets/b9444dd5-efb8-4b73-b30f-6c238f3b3d99)
+
 **Figure : Question distribution by question types.**
 
 ## Model
 ![image](https://github.com/user-attachments/assets/c7196388-820b-460a-b632-a610f64a6808)
+
 **Figure 3: The baseline model architecture.**
 
 ### Preprocessing
@@ -85,6 +89,7 @@ Previous works used LSTM to encode contextual information but lacked temporal aw
 Since the input data lacks temporal structure, we exclude positional embeddings. Instead, image and text embeddings from the previous layer are treated independently.
 
 ![image](https://miro.medium.com/v2/resize:fit:1400/1*7Jbg-m9UNKXw-Mw_o-9BJQ.gif)
+
 **Self-Attention mechanism**
 
 ### Attention Mechanism
@@ -92,6 +97,7 @@ Since the input data lacks temporal structure, we exclude positional embeddings.
 FVTA models the correlation between questions and multi-modal representations, emphasizing relevant context based on the question. Given that most answers are localized within short temporal segments, FVTA applies attention over focal context representations to summarize key information. A kernel tensor computes correlations between question words and context states, followed by a softmax layer to generate answer probabilities.
 
 ![image](https://github.com/user-attachments/assets/a4e97ef4-d31b-49de-ae33-907668cbc67a)
+
 **FVTA considers both visual-text intra-sequence correlations and cross
 sequence interaction, and focuses on a few, small regions. In FVTA, the
 multi-modal feature representation in the sequence data is preserved
@@ -102,6 +108,7 @@ without losing information.**
 Unlike FVTA, this mechanism focuses only on final-step embeddings at either word or sentence level. Contextual embeddings are projected into key-value pairs, enabling attention over final representations to compute the attention map efficiently.
 
 ![image](https://github.com/user-attachments/assets/a13d7a3a-605e-452d-9d88-ff1b73cb5078)
+
 **cross-attetnion**
 
 ## Baselines
