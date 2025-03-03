@@ -109,19 +109,11 @@ Since I had some success with **BERT-WL**, I thought of doing the same with the 
 
 
 
-Data Characteristics
-
-Problem Formulation
-
-Modifications 
-torch instead tensorflow
-self-attention instead lstm--acc
-
-Model Architecture
-
+ 
+ 
+ 
+ 
 Installation
 model params
 venv
 argparser
-
-
