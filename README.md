@@ -8,23 +8,6 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 0. [Model](#model)
 0. [Baselines](#baselines)
 
-  
-Data Characteristics
-
-Problem Formulation
-
-Modifications 
-torch instead tensorflow
-self-attention instead lstm--acc
-
-Model Architecture
-
-Installation
-model params
-venv
-argparser
-
-
 ## Dataset
 
 ![image](https://github.com/user-attachments/assets/e440360e-b5ca-4e9c-922c-00ebefbafcd1)
@@ -131,3 +114,22 @@ different kinds of data sequences and the question sequence.
 Since I had some success with **BERT-WL**, I thought of doing the same with the **GloVe-WL + FVTA** model.  
 As I did before, I replaced GloVe with the pretrained BERT word embeddings of 768 dimensions.  
 Compared to **GloVe + FVTA**, there was an accuracy improvement with **BERT**.
+
+
+
+Data Characteristics
+
+Problem Formulation
+
+Modifications 
+torch instead tensorflow
+self-attention instead lstm--acc
+
+Model Architecture
+
+Installation
+model params
+venv
+argparser
+
+
