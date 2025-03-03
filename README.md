@@ -7,6 +7,7 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 0. [Dataset](#dataset)
 0. [Model](#model)
 0. [Baselines](#baselines)
+0. [Running the Pipeline (Linux & Windows)](#Running-the-Pipeline-(Linux-&-Windows))
 
 ## Dataset
 
@@ -37,6 +38,24 @@ short text answer and a few grounding photos to justify the answer.**
 ![image](https://github.com/user-attachments/assets/b9444dd5-efb8-4b73-b30f-6c238f3b3d99)
 
 **Figure 3 : Question distribution by question types.**
+
+# Dataset download
+	memexqa_dataset_v1.1/
+	├── album_info.json   # album data: https://memexqa.cs.cmu.edu/memexqa_dataset_v1.1/album_info.json
+	├── glove.6B.100d.txt # word vectors for baselines:  http://nlp.stanford.edu/data/glove.6B.zip
+	├── photos_inception_resnet_v2_l2norm.npz # photo features: https://memexqa.cs.cmu.edu/memexqa_dataset_v1.1/photos_inception_resnet_v2_l2norm.npz
+	├── qas.json # QA data: https://memexqa.cs.cmu.edu/memexqa_dataset_v1.1/qas.json
+	└── test_question.ids # testset Id: https://memexqa.cs.cmu.edu/memexqa_dataset_v1.1/test_question.ids
+
+# Collect Dataset
+    mkdir memexqa_dataset_v1.1 
+    cd memexqa_dataset_v1.1 
+    wget https://memexqa.cs.cmu.edu/memexqa_dataset_v1.1/album_info.json
+    wget http://nlp.stanford.edu/data/glove.6B.zip
+    wget https://memexqa.cs.cmu.edu/memexqa_dataset_v1.1/photos_inception_resnet_v2_l2norm.npz
+    wget https://memexqa.cs.cmu.edu/memexqa_dataset_v1.1/qas.json
+    wget https://memexqa.cs.cmu.edu/memexqa_dataset_v1.1/test_question.ids
+    unzip glove.6B.zip
 
 
 ## Model
@@ -108,7 +127,35 @@ The original model **MemexQA** only uses the last hidden state of the encoder co
 Since I had some success with **BERT-WL**, I thought of doing the same with the **GloVe-WL + FVTA** model. As I did before, I replaced GloVe with the pretrained BERT word embeddings of 768 dimensions. Compared to **GloVe + FVTA**, there was an accuracy improvement with **BERT**.
 
 
+## Running the Pipeline (Linux & Windows)
 
+### Linux
+Preprocess:
+```shell
+python3 src/preprocess.py memexqa_dataset_v1.1/qas.json memexqa_dataset_v1.1/album_info.json memexqa_dataset_v1.1/test_question.ids memexqa_dataset_v1.1/photos_inception_resnet_v2_l2norm.npz prepro_BERT_SA_sb
+```
+Train:
+```
+python3 src/train.py --workers 8 --batchSize 32 --niter 100 --inpf ./prepro_BERT_SA_sb/ --outf ./outputs/BERT_WL_SA_sb --cuda --gpu_id 0
+```
+Test:
+```
+python3 src/test.py --workers 8 --batchSize 32 --inpf ./prepro_BERT_SA_sb/ --outf ./outputs/BERT_WL_SA_sb --cuda --gpu_id 0
+```
+
+### Windows
+Preprocess:
+```
+python src/preprocess.py memexqa_dataset_v1.1/qas.json memexqa_dataset_v1.1/album_info.json memexqa_dataset_v1.1/test_question.ids memexqa_dataset_v1.1/photos_inception_resnet_v2_l2norm.npz prepro_BERT_SA_sb
+```
+Train:
+```
+python src/train.py --workers 8 --batchSize 32 --niter 100 --inpf ./prepro_BERT_SA_sb/ --outf ./outputs/BERT_WL_SA_sb --cuda --gpu_id 0
+```
+Test:
+```
+python src/test.py --workers 8 --batchSize 32 --inpf ./prepro_BERT_SA_sb/ --outf ./outputs/BERT_WL_SA_sb --cuda --gpu_id 0
+```
  
  
  
