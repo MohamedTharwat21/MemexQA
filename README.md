@@ -62,17 +62,17 @@ Images are embedded using a pre-trained Convolutional Neural Network (CNN) and f
 #### Textual Data
 Words in metadata, questions, and answers are embedded at both word-level (WL) and sentence-level (SL) before LSTM encoding.
 #### Word-Level Embedding (WL)
-Instead of using pre-trained GloVe embeddings, we experimented with BERT-based word embeddings (BERT-WL). 
+Instead of using pre-trained GloVe embeddings, i experimented with BERT-based word embeddings (BERT-WL). 
 #### Sentence-Level Embedding (SL)
-We also experimented with using BERT-based sentence embeddings (BERT-SL), bypassing the sentence encoder to directly use pre-trained BERT embeddings as input.
+I also experimented with using BERT-based sentence embeddings (BERT-SL), bypassing the sentence encoder to directly use pre-trained BERT embeddings as input.
 
 ### Modelling
 #### Context Encoder
 Different architectures are used to encode visual and textual sequences.
 #### LSTM Encoder
-Previous works used LSTM to encode contextual information but lacked temporal awareness for images and texts. To address this, we incorporated a self-attention mechanism.
+Previous works used LSTM to encode contextual information but lacked temporal awareness for images and texts. To address this, I incorporated a self-attention mechanism.
 #### Self-Attention Encoder
-Since the input data lacks temporal structure, we exclude positional embeddings. Instead, image and text embeddings from the previous layer are treated independently.
+Since the input data lacks temporal structure, i exclude positional embeddings. Instead, image and text embeddings from the previous layer are treated independently.
 ![image](https://miro.medium.com/v2/resize:fit:1400/1*7Jbg-m9UNKXw-Mw_o-9BJQ.gif)
 
 **Figure 5 :Self-Attention mechanism**
