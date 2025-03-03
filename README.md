@@ -20,19 +20,6 @@ venv
 argparser
 
 
-
-
-
-
-
-
-
-![image](https://github.com/user-attachments/assets/84ad409d-8205-455a-9def-11d2b7ba32ea)
-
-**Example FVTA Output.**
-
-
- 
 ## Dataset
 
 ![image](https://github.com/user-attachments/assets/e440360e-b5ca-4e9c-922c-00ebefbafcd1)
@@ -61,13 +48,13 @@ short text answer and a few grounding photos to justify the answer.**
 
 ![image](https://github.com/user-attachments/assets/b9444dd5-efb8-4b73-b30f-6c238f3b3d99)
 
-**Figure : Question distribution by question types.**
+**Figure 3 : Question distribution by question types.**
 
 
 ## Model
 ![image](https://github.com/user-attachments/assets/c7196388-820b-460a-b632-a610f64a6808)
 
-**Figure 3: The baseline model architecture.**
+**Figure 4 : The baseline model architecture.**
 
 ### Preprocessing
 #### Visual Data
@@ -88,7 +75,7 @@ Previous works used LSTM to encode contextual information but lacked temporal aw
 Since the input data lacks temporal structure, we exclude positional embeddings. Instead, image and text embeddings from the previous layer are treated independently.
 ![image](https://miro.medium.com/v2/resize:fit:1400/1*7Jbg-m9UNKXw-Mw_o-9BJQ.gif)
 
-**Self-Attention mechanism**
+**Figure 5 :Self-Attention mechanism**
 
 ### Attention Mechanism
 #### Focal Visual-Text Attention (FVTA)
@@ -97,7 +84,7 @@ FVTA models the correlation between questions and multi-modal representations, e
  
 ![image](https://github.com/user-attachments/assets/9fef9bea-3c39-43c5-baf9-965860107431)
 
-**FVTA considers both visual-text intra-sequence correlations and cross
+**Figure 6 :FVTA considers both visual-text intra-sequence correlations and cross
 sequence interaction, and focuses on a few, small regions. In FVTA, the
 multi-modal feature representation in the sequence data is preserved
 without losing information.**
@@ -108,7 +95,7 @@ Unlike FVTA, this mechanism focuses only on final-step embeddings at either word
 
 ![image](https://github.com/user-attachments/assets/a13d7a3a-605e-452d-9d88-ff1b73cb5078)
 
-**cross-attetnion**
+**Figure 7 :cross-attetnion**
 
 ## Baselines
 
