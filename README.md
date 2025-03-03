@@ -8,6 +8,7 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 0. [Model](#model)
 0. [Baselines](#baselines)
 0. [Running the Pipeline (Linux & Windows)](#running-the-pipeline-linux--windows)
+0. [Installation](#installation)
 
 ## Dataset
 
@@ -158,9 +159,50 @@ python src/test.py --workers 8 --batchSize 32 --inpf ./prepro_BERT_SA_sb/ --outf
 ```
  
  
+## Installation
+Follow these steps to set up the project on your machine.
+
+### 1. Clone the Repository
+First, download the project by cloning the repository:
+```
+git clone https://github.com/your-username/your-repo.git
+cd your-repo
+```
+
+### 2. Set Up a Virtual Environment
+It's recommended to use a virtual environment to manage dependencies.
+For Linux/macOS:
+```
+python3 -m venv venv
+source venv/bin/activate
+```
+For Windows:
+```
+python -m venv venv
+venv\Scripts\activate
+```
+
+### 3. Install Dependencies
+Once the virtual environment is activated, install the required packages:
+```
+pip install -r src/requirements.txt
+```
+
+### 4. Verify Installation
+Check that the necessary dependencies are installed correctly:
+```
+python -m pip list
+```
+
+### 5. Run a Quick Test
+To ensure everything is set up properly, try running:
+```
+python src/preprocess.py --help
+```
+
+
+
  
  
-Installation
+ 
 model params
-venv
-argparser
