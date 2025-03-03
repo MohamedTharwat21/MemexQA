@@ -32,18 +32,13 @@ argparser
 
 Example FVTA Output.
 
-![image](https://github.com/user-attachments/assets/799a77ea-1036-4145-8a92-7776385deed8)
-
-Focal Visual-Text Attention Network. (old)
-
-![image](https://github.com/user-attachments/assets/a11cff51-d16f-4027-aa7f-1dbc30040910)
-
-Focal Visual-Text Attention Network. (old)
-
 ![image](https://github.com/user-attachments/assets/a0467903-0b91-44ee-8dd5-dc2af862e1b8)
 
 ## Dataset
 ![image](https://github.com/user-attachments/assets/c3dacbce-bff5-4af9-8925-f5aadfa238e4)
+**MemexQA examples. The inputs are a question and a sequence
+of a user’s photos with corresponding metadata. The outputs include a
+short text answer and a few grounding photos to justify the answer.**
 
 **Figure : Textual metadata, photos, question and four-choice answers.**
 
@@ -68,9 +63,7 @@ Model
 ![image](https://github.com/user-attachments/assets/c7196388-820b-460a-b632-a610f64a6808)
 
 
-MemexQA examples. The inputs are a question and a sequence
-of a user’s photos with corresponding metadata. The outputs include a
-short text answer and a few grounding photos to justify the answer.
+
 
 ![image](https://github.com/user-attachments/assets/a4e97ef4-d31b-49de-ae33-907668cbc67a)
 
@@ -83,30 +76,30 @@ without losing information.
 
 ## Baselines
 
-### BERT-SL + Self-Attention + K/V Attention : 
-To reduce the required training time and the too limited storage and GPU ram size, 
-I directly utilize the sentence embeddings of text sequences from the pretrained BERT model as inputs. 
-So, here, I don’t need to train the sequence encoder. Also, questions are encoded using the pooled
-outputs from the pretrained BERT model. Also, to further reduce the required training time, i use
-self-attention here to encode the information from different modalities, which are texts and images
-here. Afterwards, I do the **key/value attention** between the questions, contexts, answers to obtain
-the final attention map.
+### BERT-SL + Self-Attention + K/V Attention  
+To reduce the required training time and the too limited storage and GPU RAM size,  
+I directly utilize the sentence embeddings of text sequences from the pretrained BERT model as inputs.  
+So, here, I don’t need to train the sequence encoder. Also, questions are encoded using the pooled  
+outputs from the pretrained BERT model. To further reduce the required training time, I use  
+self-attention to encode the information from different modalities, which are texts and images.  
+Afterward, I perform **key/value attention** between the questions, contexts, and answers to obtain  
+the final attention map.  
 
-### BERT-WL + Self-Attention + K/V Attention :
-Since sentence-level embeddings don’t seem to
-have promising results, i switch to use word-level embebeddings from the pretrained BERT model
-by sacrificing the required training time. In this setting, the sentence encoder is an simple **LSTM**.
+### BERT-WL + Self-Attention + K/V Attention  
+Since sentence-level embeddings don’t seem to  
+have promising results, I switch to using word-level embeddings from the pretrained BERT model  
+by sacrificing the required training time. In this setting, the sentence encoder is a simple **LSTM**.  
 
-### BERT-WL + FVTA **MemexQA_FVTA**: 
-The origninal model which is **MemexQA** only uses the last hidden state of the encoder context,
-which wastes a lot of information stored in the whole time hidden state. To get full use of the sequence
-information, I implemented FVTA , which calculates the intra-sequence temporal
-dependency between time step of each kind of data sequence, and cross sequence interaction between
-different kind of data sequence and question sequence. With intra-sequence attention, the most
-relevant time region of one data sequence to the question is found. With cross-sequence attention, the
-most relevant data sequence to the question is found. 
-Since i had some success with BERT-WL, i thought of doing the same to the GloVe-WL + FVTA model. As
-i did before, I replaced GloVe with the pretrained BERT word embeddings of 768 dimensions.
-Compared to Glove + FVTA, there was an accuracy improvement with BERT.
+### BERT-WL + FVTA **MemexQA_FVTA**  
+The original model **MemexQA** only uses the last hidden state of the encoder context,  
+which wastes a lot of information stored in the whole time hidden state. To fully utilize the sequence  
+information, I implemented **FVTA**, which calculates the intra-sequence temporal  
+dependency between the time step of each kind of data sequence and the cross-sequence interaction between  
+different kinds of data sequences and the question sequence.  
 
+- With **intra-sequence attention**, the most relevant time region of one data sequence to the question is found.  
+- With **cross-sequence attention**, the most relevant data sequence to the question is found.  
 
+Since I had some success with **BERT-WL**, I thought of doing the same with the **GloVe-WL + FVTA** model.  
+As I did before, I replaced GloVe with the pretrained BERT word embeddings of 768 dimensions.  
+Compared to **GloVe + FVTA**, there was an accuracy improvement with **BERT**.
