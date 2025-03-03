@@ -165,7 +165,7 @@ Follow these steps to set up the project on your machine.
 ### 1. Clone the Repository
 First, download the project by cloning the repository:
 ```
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/MohamedTharwat21/MemexQA.git
 cd your-repo
 ```
 
