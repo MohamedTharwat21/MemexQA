@@ -3,11 +3,12 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 
 ![image](https://github.com/user-attachments/assets/b893d703-95bb-4a33-bb7e-586f1c7fb93d)
 
+## Contents
 0. [Dataset](#dataset)
 0. [Model](#model)
 0. [Baselines](#baselines)
 
-1. 
+  
 Data Characteristics
 
 Problem Formulation
