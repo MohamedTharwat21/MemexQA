@@ -43,8 +43,8 @@ Focal Visual-Text Attention Network. (old)
 ![image](https://github.com/user-attachments/assets/a0467903-0b91-44ee-8dd5-dc2af862e1b8)
 
 ## Dataset
+![image](https://github.com/user-attachments/assets/c3dacbce-bff5-4af9-8925-f5aadfa238e4)
 
-![image](https://github.com/user-attachments/assets/c7196388-820b-460a-b632-a610f64a6808)
 **Figure : Textual metadata, photos, question and four-choice answers.**
 
 MemexQA dataset is composed of real-world personal photo albums and questions about events
@@ -64,9 +64,9 @@ answer out of them.
 
 
 
-Model (new)
+Model
+![image](https://github.com/user-attachments/assets/c7196388-820b-460a-b632-a610f64a6808)
 
-![image](https://github.com/user-attachments/assets/c3dacbce-bff5-4af9-8925-f5aadfa238e4)
 
 MemexQA examples. The inputs are a question and a sequence
 of a user’s photos with corresponding metadata. The outputs include a
