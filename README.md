@@ -7,7 +7,7 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 0. [Dataset](#dataset)
 0. [Model](#model)
 0. [Baselines](#baselines)
-0. [Running the Pipeline (Linux & Windows)](#Running-the-Pipeline-(Linux-&-Windows))
+0. [Running the Pipeline (Linux & Windows)](#pipeline)
 
 ## Dataset
 
