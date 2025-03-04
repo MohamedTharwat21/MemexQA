@@ -9,6 +9,7 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 0. [Baselines](#baselines)
 0. [Running the Pipeline (Linux & Windows)](#running-the-pipeline-linux--windows)
 0. [Installation](#installation)
+0. [Parameters](#parameters)
 
 ## Dataset
 
@@ -199,10 +200,3 @@ To ensure everything is set up properly, try running:
 ```
 python src/preprocess.py --help
 ```
-
-
-
- 
- 
- 
-model params
