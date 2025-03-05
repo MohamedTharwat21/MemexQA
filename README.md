@@ -1,7 +1,7 @@
 # MemexQA
 MemexQA is a cutting-edge project designed to tackle the challenge of real-life multimodal question answering by leveraging both visual and textual data from personal photo albums. The task involves answering user queries about events or moments captured in sequences of photos, aiming to help users recover memories tied to these events. The model not only generates textual answers but also provides grounding photos as visual justifications, enabling users to quickly verify the provided answers.
 
-![image](https://github.com/user-attachments/assets/b893d703-95bb-4a33-bb7e-586f1c7fb93d)
+![image](https://github.com/user-attachments/assets/0b120b6b-6ecb-4638-8a17-a0a52ea5ced8)
 
 ## Contents
 0. [Dataset](#dataset)
@@ -96,7 +96,6 @@ Since the input data lacks temporal structure, i exclude positional embeddings. 
 #### Focal Visual-Text Attention (FVTA)
 FVTA models the correlation between questions and multi-modal representations, emphasizing relevant context based on the question. Given that most answers are localized within short temporal segments, FVTA applies attention over focal context representations to summarize key information. A kernel tensor computes correlations between question words and context states, followed by a softmax layer to generate answer probabilities.
 
- 
 ![image](https://github.com/user-attachments/assets/9fef9bea-3c39-43c5-baf9-965860107431)
 
 **Figure 6 :FVTA considers both visual-text intra-sequence correlations and cross
@@ -127,6 +126,18 @@ The original model **MemexQA** only uses the last hidden state of the encoder co
 - With **cross-sequence attention**, the most relevant data sequence to the question is found.  
 
 Since I had some success with **BERT-WL**, I thought of doing the same with the **GloVe-WL + FVTA** model. As I did before, I replaced GloVe with the pretrained BERT word embeddings of 768 dimensions. Compared to **GloVe + FVTA**, there was an accuracy improvement with **BERT**.
+
+## FVTA
+
+![memexqa_simp](https://github.com/user-attachments/assets/6ae7ebbd-a8de-49d4-9c64-a822d2145f5d)
+
+![image](https://github.com/user-attachments/assets/3debb4b1-e852-4320-b800-5288af1161a2)
+
+**Figure 8 & 9 : An overview of Focal Visual-Text Attention (FVTA) model. For visual-text embedding, using pre-trained convolutional neural
+network to embed the photos and pre-trained word vectors to embed the words. and using a bi-directional LSTM as the sequence encoder.
+All hidden states from the question and the context are used to calculate the FVTA tensor. Based on the FVTA attention, both question and
+the context are summarized into single vectors for the output layer to produce final answer. The output layer is used for multiple choice
+question classification (I used four-choices). The text embedding of the answer choice is also used as the input. This input is not shown in the figure.**
 
 
 ## Running the Pipeline (Linux & Windows)
