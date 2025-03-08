@@ -3,6 +3,7 @@
 Some tricks (especially for multi-head attention and positional encoding) and decoding Language Models
 https://atcold.github.io/NYU-DLSP20/en/week12/12-1/#:~:text=maximum%20sequence%20length-,Some%20tricks%20(especially%20for%20multi%2Dhead%20attention%20and%20positional%20encoding)%20and,Really%20helpful%20for%20a%20task%20like%20machine%20translation,-The%20following%20are
 """
+
 import torch
 import numpy as np
 import torch.nn as nn
@@ -176,6 +177,9 @@ class LabelSmoothingLoss(nn.Module):
         return torch.mean(torch.sum(-true_dist * pred, dim=self.dim))
 
 
+"""
+MemexQA and MemexQA_FVTA can be trained as binary classifier "one-hot" or Multiclass classifier "select-one".
+"""
 
 # pass the structure of ur model in __init__
 # pass the data in forward()
@@ -491,6 +495,8 @@ class MemexQA(nn.Module):
             This allows self.answer_proj (a fully connected layer) to process 
             the combined information before making a classification.
         """
+
+        # binary classification
         if self.mode == 'one-shot':
             # question = self.question_projection_to_ouput(question) #(bs*4,128)*(128,32)-->(bs*4,32)
             # answer = self.answer_projection_to_ouput(answer) #(bs*4,128)*(128,32)-->(bs*4,32)           
@@ -510,12 +516,17 @@ class MemexQA(nn.Module):
             # This extracts the probability of the first class (class 0).
             """what is the probability of the given sample to be Zero(means right ans)."""
             prediction = self.softmax(outputs)[:, 0] # (bs*4) 
-            loss = self.criterion(outputs, label)      
+            loss = self.criterion(outputs, label)  
+
+        # Multiclass classification 
         elif self.mode == 'select-one':
             outputs = torch.cat([question, answer, atts_question, answer*atts_question], 1) # (bs*4, value_dim*3+key_dim)
             outputs = self.answer_proj(outputs) # (bs*4, 1)
             prediction = self.softmax(outputs.view(-1, 4)) # (bs, 4)
             loss = self.criterion(prediction, torch.LongTensor(np.zeros(prediction.shape[0])).to(self.device))
+
+        # binary classification
+        # but, making an attention using answer also as a query
         elif self.mode == 'att-concat-one-shot':
             atts_answer = self.attention(answer, album_keys, album_values, mask) # (bs*4, value_dim)
             outputs = torch.cat([question, answer, atts_answer, atts_question, atts_question*atts_question], 1) # (bs*4, value_dim*3+key_dim*2)
