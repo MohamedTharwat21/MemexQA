@@ -8,6 +8,8 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 0. [Model](#model)
 0. [Baselines](#baselines)
 0. [FVTA](#fvta)
+0. [NN Design on lucidchart](#NN-Design-on-Lucidchart)
+0. [Label Smoothing Loss](#Label-Smoothing-Loss)
 0. [Running the Pipeline (Linux & Windows)](#running-the-pipeline-linux--windows)
 0. [Installation](#installation)
 0. [Parameters](#parameters)
