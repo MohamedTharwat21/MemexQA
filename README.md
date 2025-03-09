@@ -8,7 +8,7 @@ MemexQA is a cutting-edge project designed to tackle the challenge of real-life 
 0. [Model](#model)
 0. [Baselines](#baselines)
 0. [FVTA](#fvta)
-0. [NN Design on lucidchart](#NN-Design-on-Lucidchart)
+0. [Memex Design on lucidchart](#Memex-Design-on-Lucidchart)
 0. [Label Smoothing Loss](#Label-Smoothing-Loss)
 0. [Running the Pipeline (Linux & Windows)](#running-the-pipeline-linux--windows)
 0. [Installation](#installation)
@@ -137,6 +137,30 @@ network to embed the photos and pre-trained word vectors to embed the words. and
 All hidden states from the question and the context are used to calculate the FVTA tensor. Based on the FVTA attention, both question and
 the context are summarized into single vectors for the output layer to produce final answer. The output layer is used for multiple choice
 question classification (I used four-choices). The text embedding of the answer choice is also used as the input. This input is not shown in the figure.**
+
+
+
+## Memex Design on lucidchart
+
+![image](https://github.com/user-attachments/assets/3c3cfc47-f468-4988-9d67-5af102a90bd0)
+
+**Questions , Answers , Images , Text Encodings**
+
+![image](https://github.com/user-attachments/assets/6ee95eb1-40d9-48b4-8785-ccb9fdbac52a)
+
+**Images Multi-headed Self Attention**
+
+![image](https://github.com/user-attachments/assets/6b4545a5-3177-4fe3-bd65-23737773a566)
+
+**Texts Multi-headed Self Attention**
+
+![image](https://github.com/user-attachments/assets/e0754173-c635-467c-b8c6-8441c3b439f2)
+
+**Concatenation of both Texts and Images Multi-headed Self Attention Representations**
+
+![image](https://github.com/user-attachments/assets/b838cb72-9dc3-423f-a41d-3f0ac47c5fa5)
+
+**Passing Context Encoder to Multi-headed Self Attention Many Times and Finally passing it to Cross Attention OR Focal visual-text Attention**
 
 
 ## Running the Pipeline (Linux & Windows)
