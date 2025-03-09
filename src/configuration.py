@@ -1,5 +1,4 @@
 
-
 class config:
     def __init__(self):
         self.albumjson=r'/kaggle/input/multimodal-question-answering-1234/album_info.json'   #"path to album_info.json"
