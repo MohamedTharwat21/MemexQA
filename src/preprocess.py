@@ -16,7 +16,7 @@ class config:
     def __init__(self):
         self.albumjson=r'E:\Memex_QA\memexqa_dataset_v1.1\album_info.json'   #"path to album_info.json"
         self.qas=r'E:\Memex_QA\memexqa_dataset_v1.1\qas.json' #"path to the qas.json"
-        self.glove='memexqa_dataset_v1.1/glove.6B.100d.txt'  #
+        self.glove= r'E:\Memex_QA\memexqa_dataset_v1.1\glove.6B.100d.txt'  #path to glove word embeddings 
         #"/path/to img feat npz file"
         self.imgfeat=r'E:\Memex_QA\memexqa_dataset_v1.1\photos_inception_resnet_v2_l2norm.npz'
         self.outpath=r'E:\Memex_QA\prepro'   #"output path"
@@ -51,15 +51,45 @@ longformer = False
 tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
 model = AutoModel.from_pretrained("bert-base-uncased")
 
+# for each token with "-" or others, remove it and split the token 
+# def process_tokens(tokens):
+# 	newtokens = []
+# 	l = ("-","/", "~", '"', "'", ":","\)","\(","\[","\]","\{","\}")
+# 	for token in tokens:
+# 		# split then add multiple to new tokens
+# 		newtokens.extend([one for one in re.split("[%s]"%("").join(l),token) if one != ""])
+# 	return newtokens
+
+def l2norm(feat):
+	l2norm = np.linalg.norm(feat,2)
+	return feat/l2norm
+
+# for Glove Word Embeddings preparation 
+# word_counter words are lowered already
+def get_word2vec(args,word_counter):
+	word2vec_dict = {}
+	import io
+	with io.open(args.glove, 'r', encoding='utf-8') as fh:
+		for line in fh:
+			array = line.lstrip().rstrip().split(" ")
+			word = array[0]
+			vector = list(map(float, array[1:]))
+			if word in word_counter:
+				word2vec_dict[word] = vector
+			#elif word.capitalize() in word_counter:
+			#	word2vec_dict[word.capitalize()] = vector
+			elif word.lower() in word_counter:
+				word2vec_dict[word.lower()] = vector
+			#elif word.upper() in word_counter:
+			#	word2vec_dict[word.upper()] = vector
+
+	#print "{}/{} of word vocab have corresponding vectors ".format(len(word2vec_dict), len(word_counter))
+	return word2vec_dict
+	
 # this is for creating dirs quickly
 def mkdir(path):
 	if not os.path.exists(path):
 		os.makedirs(path)
-
-# return the L2 norm for feature vector
-def l2norm(feat):
-	l2norm = np.linalg.norm(feat,2)
-	return feat/l2norm
 
 # HTML 
 """removes HTML tags from a given HTML string. 
