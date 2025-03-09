@@ -147,12 +147,12 @@ question classification (I used four-choices). The text embedding of the answer 
 **Questions , Answers , Images , Text Encodings**
 
 
-
+----------------------------------------
 ![image](https://github.com/user-attachments/assets/6ee95eb1-40d9-48b4-8785-ccb9fdbac52a)
 **Images Multi-headed Self Attention**
 
 
-
+----------------------------------------
 ![image](https://github.com/user-attachments/assets/6b4545a5-3177-4fe3-bd65-23737773a566)
 **Texts Multi-headed Self Attention**
 
