@@ -157,12 +157,12 @@ question classification (I used four-choices). The text embedding of the answer 
 **Texts Multi-headed Self Attention**
 
 
-
+----------------------------------------
 ![image](https://github.com/user-attachments/assets/e0754173-c635-467c-b8c6-8441c3b439f2)
 **Concatenation of both Texts and Images Multi-headed Self Attention Representations**
 
 
-
+----------------------------------------
 ![image](https://github.com/user-attachments/assets/b838cb72-9dc3-423f-a41d-3f0ac47c5fa5)
 **Passing Context Encoder to Multi-headed Self Attention Many Times and Finally passing it to Cross Attention OR Focal visual-text Attention**
 
